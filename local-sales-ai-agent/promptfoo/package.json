@@ -1,0 +1,7 @@
+{
+  "name": "local-sales-agent-tests",
+  "private": true,
+  "devDependencies": {
+    "promptfoo": "0.123.1"
+  }
+}

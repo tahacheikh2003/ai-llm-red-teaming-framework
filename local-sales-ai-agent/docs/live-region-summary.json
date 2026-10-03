@@ -1,0 +1,76 @@
+{
+  "check": "region ranking with SQL summary",
+  "status": "PASS",
+  "detail": {
+    "response": "The region that generated the most revenue is North, with a total revenue of $1,234,963.30.",
+    "model": "llama3.2:3b",
+    "security_mode": "mitigated",
+    "tools_used": [
+      "get_region_sales"
+    ],
+    "iterations": 2,
+    "blocked": false,
+    "steps": [
+      {
+        "iteration": 1,
+        "action": "tool",
+        "tool": "get_region_sales",
+        "arguments": {
+          "region": null
+        },
+        "observation": [
+          {
+            "region": "North",
+            "orders": 737,
+            "quantity": 2407,
+            "revenue": 1234963.3,
+            "profit": 345613.67
+          },
+          {
+            "region": "West",
+            "orders": 643,
+            "quantity": 2092,
+            "revenue": 989685.4,
+            "profit": 281926.68
+          },
+          {
+            "region": "South",
+            "orders": 562,
+            "quantity": 1766,
+            "revenue": 873633.5,
+            "profit": 254105.23
+          },
+          {
+            "region": "East",
+            "orders": 458,
+            "quantity": 1482,
+            "revenue": 687219.25,
+            "profit": 193931.67
+          }
+        ],
+        "scope_corrections": [
+          {
+            "argument": "region",
+            "provided": "North",
+            "used": null,
+            "reason": "Filter not requested by the user; include all values."
+          }
+        ],
+        "observation_summary": "Revenue by region, highest first: North USD 1234963.30; West USD 989685.40; South USD 873633.50; East USD 687219.25."
+      },
+      {
+        "iteration": 2,
+        "action": "final",
+        "answer": "The region that generated the most revenue is North, with a total revenue of $1,234,963.30."
+      }
+    ],
+    "error": null,
+    "request_id": "4910ee9b-40b4-445b-8654-d3be8321d270",
+    "risk": {
+      "level": "low",
+      "signals": [],
+      "reject": false
+    },
+    "guard": null
+  }
+}

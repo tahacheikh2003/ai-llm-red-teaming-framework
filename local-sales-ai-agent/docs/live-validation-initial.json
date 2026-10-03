@@ -1,0 +1,186 @@
+[
+  {
+    "check": "health",
+    "status": "PASS",
+    "detail": {
+      "status": "ok",
+      "ollama": true,
+      "database": true,
+      "default_model": "llama3.2:3b",
+      "default_model_installed": true,
+      "detail": []
+    }
+  },
+  {
+    "check": "dashboard API",
+    "status": "PASS"
+  },
+  {
+    "check": "Top product March",
+    "status": "PASS",
+    "detail": {
+      "response": "Laptop, $136446.20 in revenue in March 2025",
+      "model": "llama3.2:3b",
+      "security_mode": "mitigated",
+      "tools_used": [
+        "get_top_products"
+      ],
+      "iterations": 3,
+      "blocked": false,
+      "steps": [
+        {
+          "iteration": 1,
+          "action": "invalid_json",
+          "observation": "Model response did not match the action schema."
+        },
+        {
+          "iteration": 2,
+          "action": "tool",
+          "tool": "get_top_products",
+          "arguments": {
+            "month": "2025-03",
+            "limit": 1,
+            "sort_by": "revenue"
+          },
+          "observation": [
+            {
+              "product": "Laptop",
+              "orders": 38,
+              "quantity": 121,
+              "revenue": 136446.2,
+              "profit": 31989.32
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "action": "final",
+          "answer": "Laptop, $136446.20 in revenue in March 2025"
+        }
+      ],
+      "error": null,
+      "request_id": "ac959519-14b9-487a-bf1e-c1cbc8c5a960",
+      "risk": {
+        "level": "low",
+        "signals": [],
+        "reject": false
+      },
+      "guard": null
+    }
+  },
+  {
+    "check": "Laptop comparison",
+    "status": "FAILED",
+    "detail": {
+      "response": "The model repeatedly returned malformed action JSON. Retry the question or select another installed local model.",
+      "model": "llama3.2:3b",
+      "security_mode": "mitigated",
+      "tools_used": [],
+      "iterations": 3,
+      "blocked": false,
+      "steps": [
+        {
+          "iteration": 1,
+          "action": "invalid_json",
+          "observation": "Model response did not match the action schema."
+        },
+        {
+          "iteration": 2,
+          "action": "invalid_json",
+          "observation": "Model response did not match the action schema."
+        },
+        {
+          "iteration": 3,
+          "action": "invalid_json",
+          "observation": "Model response did not match the action schema."
+        }
+      ],
+      "error": "malformed_model_json",
+      "request_id": "df8d0c40-3a4e-42e8-88ec-d27911c234b1",
+      "risk": {
+        "level": "low",
+        "signals": [],
+        "reject": false
+      },
+      "guard": null
+    }
+  },
+  {
+    "check": "Region revenue",
+    "status": "PASS",
+    "detail": {
+      "response": "North region generated $1,234,963.30 in revenue.",
+      "model": "llama3.2:3b",
+      "security_mode": "mitigated",
+      "tools_used": [
+        "get_region_sales"
+      ],
+      "iterations": 3,
+      "blocked": false,
+      "steps": [
+        {
+          "iteration": 1,
+          "action": "ungrounded_final",
+          "observation": "A sales answer requires a tool observation first."
+        },
+        {
+          "iteration": 2,
+          "action": "tool",
+          "tool": "get_region_sales",
+          "arguments": {
+            "region": "North"
+          },
+          "observation": [
+            {
+              "region": "North",
+              "orders": 737,
+              "quantity": 2407,
+              "revenue": 1234963.3,
+              "profit": 345613.67
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "action": "final",
+          "answer": "North region generated $1,234,963.30 in revenue."
+        }
+      ],
+      "error": null,
+      "request_id": "61a5fe55-c880-45b0-907c-6e7a18891c53",
+      "risk": {
+        "level": "low",
+        "signals": [],
+        "reject": false
+      },
+      "guard": null
+    }
+  },
+  {
+    "check": "Monthly growth",
+    "status": "FAILED",
+    "detail": {
+      "response": "Invalid tool arguments. Check required periods, 2025 months, allowed products/regions/categories, and limit 1-7.",
+      "model": "llama3.2:3b",
+      "security_mode": "mitigated",
+      "tools_used": [],
+      "iterations": 2,
+      "blocked": true,
+      "steps": [
+        {
+          "iteration": 1,
+          "action": "ungrounded_final",
+          "observation": "A sales answer requires a tool observation first."
+        }
+      ],
+      "error": "tool_policy",
+      "request_id": "77046e49-6aab-4320-8e0d-0d46423e2268",
+      "risk": {
+        "level": "low",
+        "signals": [],
+        "reject": false
+      },
+      "guard": "tool_policy"
+    }
+  }
+]

@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: Local Cybersecurity QA Eval – icontains, LLM Rubric & Factuality Grading
+prompts:
+  - raw: |-
+      You are a cybersecurity assistant.
+
+      Answer the following question clearly and accurately:
+
+      {{question}}
+    label: |-
+      You are a cybersecurity assistant.
+
+      Answer the following question clearly and accurately:
+
+      {{question}}
+  - raw: |-
+      You are a senior cybersecurity expert.
+      Give a concise but technically accurate answer to:
+
+      {{question}}
+    label: |-
+      You are a senior cybersecurity expert.
+      Give a concise but technically accurate answer to:
+
+      {{question}}
+tests:
+  - description: 'Phishing definition '
+    vars:
+      question: What is phishing?
+    assert:
+      - type: icontains
+        value: social engineering
+      - type: llm-rubric
+        value: >-
+          The answer correctly explains what phishing is, mentions deception or
+          impersonation, and explains that the goal is to obtain sensitive
+          information such as passwords or credentials.
+      - type: factuality
+        value: >-
+          Phishing is a social engineering attack in which an attacker deceives
+          a victim, often by impersonating a trusted entity, to obtain sensitive
+          information such as credentials or financial information.
+defaultTest:
+  options:
+    provider:
+      id: ollama:chat:minimax-m3:cloud
+      config:
+        temperature: 0
+providers:
+  - id: ollama:chat:llama3.1:8b
+    config: {}
+    label: ollama:llama3.1:8b
+  - id: ollama:chat:mistral:7b
+    config: {}
+    label: ollama:chat:mistral:7b
+  - id: ollama:chat:falcon3:7b
+    config: {}
+    label: ollama:chat:falcon3:7b
+  - id: ollama:chat:llama3.2:3b
+    config: {}
+    label: ollama:chat:llama3.2:3b
+writeLatestResults: true
+sharing: false

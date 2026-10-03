@@ -1,0 +1,223 @@
+[
+  {
+    "check": "health",
+    "status": "PASS",
+    "detail": {
+      "status": "ok",
+      "ollama": true,
+      "database": true,
+      "default_model": "llama3.2:3b",
+      "default_model_installed": true,
+      "detail": []
+    }
+  },
+  {
+    "check": "dashboard API",
+    "status": "PASS"
+  },
+  {
+    "check": "Top product March",
+    "status": "PASS",
+    "detail": {
+      "response": "The Laptop had the highest revenue in March with $136,446.20.",
+      "model": "llama3.2:3b",
+      "security_mode": "mitigated",
+      "tools_used": [
+        "get_top_products"
+      ],
+      "iterations": 2,
+      "blocked": false,
+      "steps": [
+        {
+          "iteration": 1,
+          "action": "tool",
+          "tool": "get_top_products",
+          "arguments": {
+            "month": "2025-03",
+            "limit": 1,
+            "sort_by": "revenue"
+          },
+          "observation": [
+            {
+              "product": "Laptop",
+              "orders": 38,
+              "quantity": 121,
+              "revenue": 136446.2,
+              "profit": 31989.32
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "action": "final",
+          "answer": "The Laptop had the highest revenue in March with $136,446.20."
+        }
+      ],
+      "error": null,
+      "request_id": "81d500b5-035b-40ff-b9e5-9ebdd5d7d2d3",
+      "risk": {
+        "level": "low",
+        "signals": [],
+        "reject": false
+      },
+      "guard": null
+    }
+  },
+  {
+    "check": "Laptop comparison",
+    "status": "PASS",
+    "detail": {
+      "response": "Laptop sales in January 2025 were $122,357.95, and in February 2025 were $117,681.85, a decrease of $4,676.10 (-3.82%).",
+      "model": "llama3.2:3b",
+      "security_mode": "mitigated",
+      "tools_used": [
+        "compare_sales_periods"
+      ],
+      "iterations": 2,
+      "blocked": false,
+      "steps": [
+        {
+          "iteration": 1,
+          "action": "tool",
+          "tool": "compare_sales_periods",
+          "arguments": {
+            "period1": "2025-01",
+            "period2": "2025-02",
+            "product": "Laptop"
+          },
+          "observation": {
+            "period1": {
+              "month": "2025-01",
+              "orders": 31,
+              "quantity": 110,
+              "revenue": 122357.95,
+              "profit": 27397.15
+            },
+            "period2": {
+              "month": "2025-02",
+              "orders": 36,
+              "quantity": 106,
+              "revenue": 117681.85,
+              "profit": 26174.17
+            },
+            "product": "Laptop",
+            "revenue_change": -4676.1,
+            "growth_rate_pct": -3.82,
+            "summary": "Laptop revenue: 2025-01 USD 122357.95; 2025-02 USD 117681.85. Change: USD -4676.10 (-3.82%)."
+          }
+        },
+        {
+          "iteration": 2,
+          "action": "final",
+          "answer": "Laptop sales in January 2025 were $122,357.95, and in February 2025 were $117,681.85, a decrease of $4,676.10 (-3.82%)."
+        }
+      ],
+      "error": null,
+      "request_id": "87031b8f-818a-4671-b28c-b93a6c5958d1",
+      "risk": {
+        "level": "low",
+        "signals": [],
+        "reject": false
+      },
+      "guard": null
+    }
+  },
+  {
+    "check": "Region revenue",
+    "status": "FAILED",
+    "detail": {
+      "response": "The model repeatedly returned malformed action JSON. Retry the question or select another installed local model.",
+      "model": "llama3.2:3b",
+      "security_mode": "mitigated",
+      "tools_used": [],
+      "iterations": 3,
+      "blocked": false,
+      "steps": [
+        {
+          "iteration": 1,
+          "action": "invalid_arguments",
+          "tool": "get_region_sales",
+          "observation": "The region filter was not requested. Retry with region=null to include all values."
+        },
+        {
+          "iteration": 2,
+          "action": "invalid_arguments",
+          "tool": "get_region_sales",
+          "observation": "The region filter was not requested. Retry with region=null to include all values."
+        },
+        {
+          "iteration": 3,
+          "action": "invalid_json",
+          "observation": "Model response did not match the action schema."
+        }
+      ],
+      "error": "malformed_model_json",
+      "request_id": "e6a66f42-6f00-4960-8623-132e8e855547",
+      "risk": {
+        "level": "low",
+        "signals": [],
+        "reject": false
+      },
+      "guard": null
+    }
+  },
+  {
+    "check": "Monthly growth",
+    "status": "PASS",
+    "detail": {
+      "response": "The monthly revenue growth rate from January to February was -7.81%, with January revenue at $286,292.45 and February revenue at $263,944.65.",
+      "model": "llama3.2:3b",
+      "security_mode": "mitigated",
+      "tools_used": [
+        "calculate_growth"
+      ],
+      "iterations": 2,
+      "blocked": false,
+      "steps": [
+        {
+          "iteration": 1,
+          "action": "tool",
+          "tool": "calculate_growth",
+          "arguments": {
+            "period1": "2025-01",
+            "period2": "2025-02",
+            "product": null
+          },
+          "observation": {
+            "period1": {
+              "month": "2025-01",
+              "orders": 200,
+              "quantity": 646,
+              "revenue": 286292.45,
+              "profit": 82051.77
+            },
+            "period2": {
+              "month": "2025-02",
+              "orders": 200,
+              "quantity": 580,
+              "revenue": 263944.65,
+              "profit": 75162.96
+            },
+            "product": null,
+            "revenue_change": -22347.8,
+            "growth_rate_pct": -7.81,
+            "summary": "All products revenue: 2025-01 USD 286292.45; 2025-02 USD 263944.65. Change: USD -22347.80 (-7.81%)."
+          }
+        },
+        {
+          "iteration": 2,
+          "action": "final",
+          "answer": "The monthly revenue growth rate from January to February was -7.81%, with January revenue at $286,292.45 and February revenue at $263,944.65."
+        }
+      ],
+      "error": null,
+      "request_id": "1a51c181-fd72-42f2-9f91-d4f12ca09da1",
+      "risk": {
+        "level": "low",
+        "signals": [],
+        "reject": false
+      },
+      "guard": null
+    }
+  }
+]
